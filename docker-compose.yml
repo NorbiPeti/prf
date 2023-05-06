@@ -1,0 +1,14 @@
+services:
+  backend:
+    build: server/.docker
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/home/node/app
+    environment:
+      - DBHOST=database
+  database:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+
