@@ -1,21 +1,21 @@
-<div *ngIf="userService.user">
+<div *ngIf="userService.user; else login" class="loginbox" style="margin: 20px">
   Üdv {{ userService.user.username }}
 </div>
 <ng-template #login>
-  <form>
-    <div>
-      Felhasználónév:
-      <input type="text" name="username">
-    </div>
-    <div>
-      Jelszó:
-      <input type="password" name="password">
-    </div>
-    <button>Bejelentkezés</button>
-    <div>
-      <button>Regisztráció</button>
-    </div>
-  </form>
+  <div class="loginbox">
+    <form [formGroup]="loginForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Felhasználónév</mat-label>
+        <input matInput formControlName="username">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Jelszó</mat-label>
+        <input matInput type="password" formControlName="password">
+      </mat-form-field>
+      <button mat-button class="mat-primary" (click)="doLogin()">Bejelentkezés</button>
+      <button mat-button>Regisztráció</button>
+    </form>
+  </div>
 </ng-template>
 <h1>Termékek</h1>
 

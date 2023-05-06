@@ -30,39 +30,33 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
-passport.use('local', new LocalStrategy({}, function (username, password, done) {
-	User.findOne({ username: username }, function (err, user) {
-		if (err) return done('Hiba lekeres soran', null);
-		if (!user) return done('Nincs ilyen felhasználónév', null);
-		user.comparePasswords(password, function (error, isMatch) {
-			if (error) return done(error, false);
-			if (!isMatch) return done('Hibas jelszo', false);
-			return done(null, user);
-		});
+passport.use('local', new LocalStrategy({}, async function (username, password, done) {
+	const user = await User.findOne({ username: username }).catch(() => done('Hiba lekeres soran', null));
+	if (!user) return done('Nincs ilyen felhasználónév', null);
+	user.comparePasswords(password, function (error, isMatch) {
+		if (error) return done(error, false);
+		if (!isMatch) return done('Hibás jelszó', false);
+		return done(null, user);
 	});
 }));
 
 
 passport.serializeUser(function (user, done) {
-	if (!user) return done('nincs megadva beléptethető felhasználó', null);
+	if (!user) return done('nincs megadva szerializálható felhasználó', null);
 	return done(null, user);
 });
 
 passport.deserializeUser(function (user, done) {
-	if (!user) return done("nincs user akit kiléptethetnénk", null);
+	if (!user) return done("nincs megadva deszerializálható felhasználó", null);
 	return done(null, user);
 });
 
-app.use(expressSession({ secret: 'prf2021lassananodejsvegereerunk', resave: true, saveUninitialized: false }));
+app.use(expressSession({ secret: 'prfcheesecrescentmc', resave: true, saveUninitialized: false }));
 app.use(passport.initialize({}));
 app.use(passport.session({}));
 
-app.use((req, res, next) => {
-	console.log('A middleware futott!')
-	next()
-});
-
 app.use('/api/users', require('./usersRouter'))
+app.use('/api/products', require('./productsRouter'))
 
 app.use('', express.static('public'))
 

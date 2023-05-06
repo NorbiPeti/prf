@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('user');
+const Product = require('./productSchema')
 
 async function ensureAdminExists() {
 	try {
@@ -22,4 +23,21 @@ async function ensureAdminExists() {
 	}
 }
 
-module.exports = ensureAdminExists;
+async function boot() {
+	await ensureAdminExists();
+	if (await Product.exists({})) {
+		console.log("A termékek már léteznek");
+		return;
+	}
+	for (let i = 0; i < 20; i++) {
+		const product = new Product({
+			name: `Teszt termék${i}`,
+			price: Math.floor(500+Math.random()*500),
+			description: `Teszt leirás${i}`
+		});
+		await product.save();
+	}
+	console.log("Termékek sikeresen létrehozva!");
+}
+
+module.exports = boot;

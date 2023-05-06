@@ -5,13 +5,18 @@ const User = mongoose.model('user');
 
 const passport = require('passport');
 
+function getUserData(user) {
+	return {username: user.username, accessLevel: user.accessLevel, birthdate: user.birthdate};
+}
+
 router.route('/login').post((req, res) => {
+	console.log("Req body:", req.body);
 	if (req.body.username && req.body.password) {
 		passport.authenticate('local', {}, function (error, user) {
-			if (error) return res.status(500).send(error);
+			if (error) return res.status(500).send({error: error});
 			req.login(user, function (error) {
 				if (error) return res.status(500).send(error);
-				return res.status(200).send('Bejelentkezes sikeres');
+				return res.status(200).send(getUserData(user));
 			})
 		})(req, res);
 	} else {
@@ -36,9 +41,9 @@ router.route('/logout').post((req, res) => {
 router.route('/status').get((req, res) => {
 	if (req.isAuthenticated()) {
 		console.log(req.user)
-		return res.status(200).send(req.user);
+		return res.status(200).send(getUserData(req.user));
 	} else {
-		return res.status(403).send('Nem is volt bejelentkezve');
+		return res.status(403).send({status: "NOTOK"});
 	}
 })
 
@@ -57,6 +62,9 @@ async function getUser(req, res, next) {
 
 // GET /users - összes felhasználó lekérdezése
 router.get('/', async (req, res) => {
+	if (!req.isAuthenticated()) {
+		return res.status(403).json({ message: "Unauthenticated" });
+	}
 	try {
 		const users = await User.find();
 		res.status(200).json(users);
@@ -67,11 +75,17 @@ router.get('/', async (req, res) => {
 
 // GET /users/:id - egy felhasználó lekérdezése az id alapján
 router.get('/:id', getUser, (req, res) => {
+	if (!req.isAuthenticated()) {
+		return res.status(403).json({ message: "Unauthenticated" });
+	}
 	res.json(res.user);
 });
 
 // POST /users - új felhasználó létrehozása
 router.post('/', async (req, res) => {
+	if (!req.isAuthenticated()) {
+		return res.status(403).json({ message: "Unauthenticated" });
+	}
 	const user = new User({
 		username: req.body.username,
 		password: req.body.password,
@@ -89,6 +103,9 @@ router.post('/', async (req, res) => {
 
 // PATCH /users/:id - egy felhasználó frissítése az id alapján
 router.patch('/:id', getUser, async (req, res) => {
+	if (!req.isAuthenticated()) {
+		return res.status(403).json({ message: "Unauthenticated" });
+	}
 	if (req.body.username != null) {
 		res.user.username = req.body.username;
 	}
@@ -112,6 +129,9 @@ router.patch('/:id', getUser, async (req, res) => {
 
 // DELETE /users/:id - egy felhasználó törlése az id alapján
 router.delete('/:id', getUser, async (req, res) => {
+	if (!req.isAuthenticated()) {
+		return res.status(403).json({ message: "Unauthenticated" });
+	}
 	try {
 		await res.user.remove();
 		res.json({ message: 'A felhasználó sikeresen törölve!' });

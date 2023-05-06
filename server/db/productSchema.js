@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-	username: {
+	name: {
 		type: String,
 		/* támogatott típusok: String, Number, Date, Buffer, Boolean, Mixed, ObjectId,
 			Array, Decimal128, Map, Schema - az utolsóval valósítható meg az egymásba ágyazás, tehát hogy az egyik dokumentum
@@ -9,49 +9,28 @@ const productSchema = new mongoose.Schema({
 		required: true,
 		unique : true
 	},
-	password: {
+	price: {
+		type: Number,
+		required: true,
+		default: 1000,
+	},
+	description: {
 		type: String,
 		required: true,
 	},
-	accessLevel: {
-		type: Number,
-		required: true,
-		default: 1,
-	},
-	birthdate: {
-		type: Date,
-		required: true,
-	},
-});
-
-userSchema.pre('save', function(next) {
-	const user = this;
-	if(user.isModified('password')) {
-		bcrypt.genSalt(10, function(err, salt) {
-			if(err) {
-				console.log('hiba a salt generalasa soran');
-				return next(err);
-			}
-			bcrypt.hash(user.password, salt, function(error, hash) {
-				if(error) {
-					console.log('hiba a hasheles soran');
-					return next(error);
-				}
-				user.password = hash;
-				return next();
-			})
-		})
-	} else {
-		return next();
+	id: {
+		type: String,
 	}
 });
 
-userSchema.methods.comparePasswords = function(password, nx) {
-	bcrypt.compare(password, this.password, function(err, isMatch) {
-		nx(err, isMatch);
-	});
-};
+productSchema.pre('save', function(next) {
+	const product = this;
+	if(product.isModified('name')) {
+		product.name = product.name.replaceAll(/[ !?$.,-]/g, '');
+	}
+	return next();
+});
 
-const User = mongoose.model('user', userSchema);
+const Product = mongoose.model('product', productSchema);
 
-module.exports = User;
+module.exports = Product;
