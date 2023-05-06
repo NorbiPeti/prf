@@ -26,3 +26,12 @@ Ezután a http://localhost:3000/ cimen érhető el az oldal.
 * Jelszó: admin123
 
 Bejelentkezés után választhatunk a terméklista és a felhasználólista között. A termékeknél jobbra található egy-egy szerkesztés gomb, ami a szerkesztő oldalra visz.
+
+Fontos pontok:
+* Statikus hosztolás: eleve jó helyre buildelődik a frontend
+* Adatbázis: órai felépités
+* Adatbázis hook: jelszótitkositás és termék ID generálás
+* Route-ok adottak
+* Van navigáció frontenden (terméklista/felhasználólista, termék szerkesztés)
+* Service-eken keresztül kommunikál a backenddel
+* Van auth guard
