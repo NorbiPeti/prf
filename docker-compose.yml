@@ -11,4 +11,7 @@ services:
     image: mongo:6
     ports:
       - "27017:27017"
-
+  frontend:
+    build: client/.docker
+    volumes:
+      - .:/home/node/app
