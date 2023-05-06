@@ -40,7 +40,6 @@ router.route('/logout').post((req, res) => {
 
 router.route('/status').get((req, res) => {
 	if (req.isAuthenticated()) {
-		console.log(req.user)
 		return res.status(200).send(getUserData(req.user));
 	} else {
 		return res.status(403).send({status: "NOTOK"});

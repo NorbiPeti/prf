@@ -18,6 +18,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { AuthCheck } from './auth-check';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RegisterComponent } from './register/register.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { RegisterComponent } from './register/register.component';
     ProductListComponent,
     LoginComponent,
     UserListComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,

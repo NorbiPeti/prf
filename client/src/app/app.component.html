@@ -1,5 +1,9 @@
 <div *ngIf="userService.user; else login" class="loginbox" style="margin: 20px">
   Üdv {{ userService.user.username }}
+  <div>
+    <button mat-button class="mat-primary" (click)="router.navigate(['/'])">Termékek</button>
+    <button mat-button class="mat-primary" (click)="router.navigate(['/users'])">Felhasználók</button>
+  </div>
 </div>
 <ng-template #login>
   <div class="loginbox">
@@ -17,8 +21,4 @@
     </form>
   </div>
 </ng-template>
-<div>
-  <button mat-button class="mat-primary" (click)="router.navigate(['/'])">Termékek</button>
-  <button mat-button class="mat-primary" (click)="router.navigate(['/users'])">Felhasználók</button>
-</div>
 <router-outlet></router-outlet>

@@ -6,7 +6,7 @@ const Product = mongoose.model('product');
 const passport = require('passport');
 
 function getProductData(product) {
-	return {name: product.name, price: product.price, description: product.description, id: product.id};
+	return {name: product.name, price: product.price, description: product.description, id: product.id, _id: product._id};
 }
 
 async function getProduct(req, res, next) {

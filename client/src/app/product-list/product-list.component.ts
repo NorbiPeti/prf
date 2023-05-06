@@ -6,6 +6,7 @@ import { ProductService } from '../services/product.service';
 import { Product } from '../model/product.model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-product-list',
@@ -20,7 +21,7 @@ export class ProductListComponent implements AfterViewInit {
   products: Observable<Product[]>
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'description', 'price'];
+  displayedColumns = ['name', 'description', 'price', 'actions'];
 
   constructor(private service: ProductService) {
     this.products = service.getList().pipe(map(value => value as Product[]));

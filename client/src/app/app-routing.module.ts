@@ -4,6 +4,7 @@ import { AuthCheck } from './auth-check';
 import { ProductListComponent } from './product-list/product-list.component';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: '',
         component: ProductListComponent
+      },
+      {
+        path: ':id',
+        component: ProductEditComponent
       }
     ]
   },

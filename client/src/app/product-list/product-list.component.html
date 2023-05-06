@@ -15,6 +15,11 @@
       <td mat-cell *matCellDef="let row">{{row.price}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Műveletek</th>
+      <td mat-cell *matCellDef="let row"><button mat-button [routerLink]="['/', row._id]">Szerkesztés</button></td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

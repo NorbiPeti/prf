@@ -24,3 +24,5 @@ Ezután a http://localhost:3000/ cimen érhető el az oldal.
 ## Használat
 * Felhasználónév: admin
 * Jelszó: admin123
+
+Bejelentkezés után választhatunk a terméklista és a felhasználólista között. A termékeknél jobbra található egy-egy szerkesztés gomb, ami a szerkesztő oldalra visz.

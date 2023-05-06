@@ -16,6 +16,15 @@ async function ensureAdminExists() {
 				birthdate: new Date(),
 			});
 			await newAdmin.save();
+			for (let i = 0; i < 10; i++) {
+				const user = new User({
+					username: `user${i}`,
+					password: '12345678',
+					accessLevel: 1,
+					birthdate: new Date(),
+				});
+				await user.save();
+			}
 			console.log('Az admin felhasználó sikeresen létrehozva!');
 		}
 	} catch (error) {

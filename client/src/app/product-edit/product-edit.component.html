@@ -1,0 +1,7 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Név</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <button mat-button class="mat-primary" (click)="save()">Mentés</button>
+</form>
