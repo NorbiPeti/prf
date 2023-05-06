@@ -2,7 +2,10 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { ProductListDataSource, ProductListItem } from './product-list-datasource';
+import { ProductService } from '../services/product.service';
+import { Product } from '../model/product.model';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -12,19 +15,18 @@ import { ProductListDataSource, ProductListItem } from './product-list-datasourc
 export class ProductListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<ProductListItem>;
-  dataSource: ProductListDataSource;
+  @ViewChild(MatTable) table!: MatTable<Product>;
+
+  products: Observable<Product[]>
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['name', 'description', 'price'];
 
-  constructor() {
-    this.dataSource = new ProductListDataSource();
+  constructor(private service: ProductService) {
+    this.products = service.getList().pipe(map(value => value as Product[]));
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+    this.table.dataSource = this.products;
   }
 }

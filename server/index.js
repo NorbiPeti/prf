@@ -58,6 +58,13 @@ app.use(passport.session({}));
 app.use('/api/users', require('./usersRouter'))
 app.use('/api/products', require('./productsRouter'))
 
+app.use(function (req, _, next) {
+	if (!req.url.startsWith('/api') && req.url.indexOf('.') === -1) {
+		req.url = '/';
+	}
+	next();
+})
+
 app.use('', express.static('public'))
 
 app.listen(3000, () => {

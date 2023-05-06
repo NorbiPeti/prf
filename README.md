@@ -20,3 +20,7 @@ npm install
 npm start
 ```
 Ezután a http://localhost:3000/ cimen érhető el az oldal.
+
+## Használat
+* Felhasználónév: admin
+* Jelszó: admin123

@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
 	}
 	try {
 		const products = await Product.find();
-		res.status(200).json(products);
+		res.status(200).json(products.map(product => getProductData(product)));
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
@@ -40,7 +40,7 @@ router.get('/:id', getProduct, (req, res) => {
 	if (!req.isAuthenticated()) {
 		return res.status(403).json({ message: "Unauthenticated" });
 	}
-	res.json(res.product);
+	res.json(getProductData(res.product));
 });
 
 // POST /products - új termék létrehozása

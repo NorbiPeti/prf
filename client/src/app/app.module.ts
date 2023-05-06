@@ -12,11 +12,20 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './login/login.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { AuthCheck } from './auth-check';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent
+    ProductListComponent,
+    LoginComponent,
+    UserListComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +37,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    MatSlideToggleModule
   ],
-  providers: [],
+  providers: [
+    AuthCheck
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

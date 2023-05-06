@@ -14,7 +14,9 @@ export class AppComponent implements OnInit {
     password: new FormControl()
   });
 
-  constructor(public userService: UserService, private router: Router) {
+  toggle = false;
+
+  constructor(public userService: UserService, public router: Router) {
   }
 
   ngOnInit() {
@@ -30,5 +32,8 @@ export class AppComponent implements OnInit {
       console.log("Hiba:", e);
       alert("Hiba: " + (e?.error?.error ?? JSON.stringify(e)));
     }
+  }
+
+  async doRegister() {
   }
 }

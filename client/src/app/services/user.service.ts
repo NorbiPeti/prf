@@ -32,4 +32,8 @@ export class UserService {
       this._user = undefined;
     }
   }
+
+  getList() {
+    return this.http.get('/api/users')
+  }
 }

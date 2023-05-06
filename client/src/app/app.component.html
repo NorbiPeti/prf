@@ -13,9 +13,12 @@
         <input matInput type="password" formControlName="password">
       </mat-form-field>
       <button mat-button class="mat-primary" (click)="doLogin()">Bejelentkezés</button>
-      <button mat-button>Regisztráció</button>
+      <button mat-button (click)="doRegister()">Regisztráció</button>
     </form>
   </div>
 </ng-template>
-<h1>Termékek</h1>
-
+<div>
+  <button mat-button class="mat-primary" (click)="router.navigate(['/'])">Termékek</button>
+  <button mat-button class="mat-primary" (click)="router.navigate(['/users'])">Felhasználók</button>
+</div>
+<router-outlet></router-outlet>
