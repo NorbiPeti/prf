@@ -31,10 +31,10 @@ router.route('/logout').post((req, res) => {
 				console.log('Hiba a kijelentkezés során');
 				return res.status(500).send(err)
 			}
-			return res.status(200).send('Kijelentkezes sikeres');
+			return res.status(200).json({status: 'OK'});
 		});
 	} else {
-		return res.status(403).send('Nem is volt bejelentkezve');
+		return res.status(403).json({status: 'NOTOK'});
 	}
 })
 

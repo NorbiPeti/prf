@@ -24,9 +24,6 @@ async function getProduct(req, res, next) {
 
 // GET /products - összes termék lekérdezése
 router.get('/', async (req, res) => {
-	if (!req.isAuthenticated()) {
-		return res.status(403).json({ message: "Unauthenticated" });
-	}
 	try {
 		const products = await Product.find();
 		res.status(200).json(products.map(product => getProductData(product)));

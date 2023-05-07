@@ -17,7 +17,7 @@ export class ProductEditComponent {
   })
 
   constructor(private service: ProductService, route: ActivatedRoute) {
-    service.get(route.snapshot.params['id']).subscribe(value => this.form.patchValue(value));
+    service.get(route.snapshot.params['id']).subscribe((value: Product) => this.form.patchValue(value));
   }
 
   save() {

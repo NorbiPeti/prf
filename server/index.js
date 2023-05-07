@@ -25,6 +25,7 @@ require('./db/bootstrapper')();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const {mongo} = require("mongoose");
+const path = require("path");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -58,11 +59,12 @@ app.use(passport.session({}));
 app.use('/api/users', require('./usersRouter'))
 app.use('/api/products', require('./productsRouter'))
 
-app.use(function (req, _, next) {
+app.use(function (req, res, next) {
 	if (!req.url.startsWith('/api') && req.url.indexOf('.') === -1) {
-		req.url = '/';
+		res.sendFile(path.resolve('public', 'index.html'));
+	} else {
+		next();
 	}
-	next();
 })
 
 app.use('', express.static('public'))

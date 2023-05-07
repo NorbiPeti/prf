@@ -15,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './user-list/user-list.component';
-import { AuthCheck } from './auth-check';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RegisterComponent } from './register/register.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
@@ -44,7 +43,6 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
     MatSlideToggleModule
   ],
   providers: [
-    AuthCheck
   ],
   bootstrap: [AppComponent]
 })

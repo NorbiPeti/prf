@@ -9,11 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  loginForm = new FormGroup({
-    username: new FormControl(),
-    password: new FormControl()
-  });
-
   toggle = false;
 
   constructor(public userService: UserService, public router: Router) {
@@ -25,15 +20,9 @@ export class AppComponent implements OnInit {
     }
   }
 
-  async doLogin() {
-    try {
-      await this.userService.login(this.loginForm.value.username, this.loginForm.value.password);
-    } catch (e: any) {
-      console.log("Hiba:", e);
-      alert("Hiba: " + (e?.error?.error ?? JSON.stringify(e)));
+  async logout() {
+    if (await this.userService.logout()) {
+      await this.router.navigate(['/']);
     }
-  }
-
-  async doRegister() {
   }
 }

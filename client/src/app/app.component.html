@@ -1,24 +1,14 @@
-<div *ngIf="userService.user; else login" class="loginbox" style="margin: 20px">
+<div *ngIf="userService.user; else login" class="loginbox">
   Üdv {{ userService.user.username }}
-  <div>
-    <button mat-button class="mat-primary" (click)="router.navigate(['/'])">Termékek</button>
-    <button mat-button class="mat-primary" (click)="router.navigate(['/users'])">Felhasználók</button>
-  </div>
+  <button mat-button class="mat-primary" (click)="router.navigate(['/'])">Termékek</button>
+  <button mat-button class="mat-primary" (click)="router.navigate(['/users'])">Felhasználók</button>
+  <button mat-button (click)="logout()">Kijelentkezés</button>
 </div>
 <ng-template #login>
   <div class="loginbox">
-    <form [formGroup]="loginForm">
-      <mat-form-field appearance="fill">
-        <mat-label>Felhasználónév</mat-label>
-        <input matInput formControlName="username">
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Jelszó</mat-label>
-        <input matInput type="password" formControlName="password">
-      </mat-form-field>
-      <button mat-button class="mat-primary" (click)="doLogin()">Bejelentkezés</button>
-      <button mat-button (click)="doRegister()">Regisztráció</button>
-    </form>
+    <button mat-button class="mat-primary" (click)="router.navigate(['/'])">Termékek</button>
+    <button routerLink="/login" mat-button class="mat-primary">Bejelentkezés</button>
+    <button routerLink="/register" mat-button>Regisztráció</button>
   </div>
 </ng-template>
 <router-outlet></router-outlet>

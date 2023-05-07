@@ -1,1 +1,14 @@
-<h1>Jelentkezz be</h1>
+<div class="loginbox">
+  <form [formGroup]="loginForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Felhasználónév</mat-label>
+      <input matInput formControlName="username">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Jelszó</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+    <button mat-button class="mat-primary" (click)="doLogin()">Bejelentkezés</button>
+    <button mat-button [routerLink]="'/register'">Regisztráció</button>
+  </form>
+</div>

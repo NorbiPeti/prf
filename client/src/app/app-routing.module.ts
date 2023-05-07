@@ -1,34 +1,37 @@
-import { NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthCheck } from './auth-check';
 import { ProductListComponent } from './product-list/product-list.component';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
+import { UserService } from './services/user.service';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthCheck],
+    canMatch: [() => !!inject(UserService).user],
     children: [
       {
         path: 'users',
         component: UserListComponent
       },
       {
-        path: '',
-        component: ProductListComponent
-      },
-      {
         path: ':id',
         component: ProductEditComponent
+      },
+      {
+        path: '',
+        component: ProductListComponent
       }
     ]
   },
   {
     path: '',
     children: [
-      {path: '', component: LoginComponent}
+      {path: 'login', component: LoginComponent},
+      {path: 'register', component: RegisterComponent},
+      {path: '', component: ProductListComponent}
     ]
   }
 ];
@@ -39,5 +42,3 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
 }
-
-export type RouteData = { title: string; };

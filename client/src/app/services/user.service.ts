@@ -26,10 +26,21 @@ export class UserService {
       const user = await firstValueFrom(this.http.get('/api/users/status'));
       this._user = user as User;
     } catch (e: any) {
-      if (e?.error?.error?.status !== 'NOTOK') {
+      if (e?.error?.status !== 'NOTOK') {
         console.log("Failed to get user:", e);
       }
       this._user = undefined;
+    }
+  }
+
+  async logout() {
+    try {
+      await firstValueFrom(this.http.post('/api/users/logout', {}));
+      this._user = undefined;
+      return true;
+    } catch (e: any) {
+      console.log("Failed to log out:", e);
+      return false;
     }
   }
 
