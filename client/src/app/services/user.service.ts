@@ -44,6 +44,11 @@ export class UserService {
     }
   }
 
+  async register(username: string, password: string, birthdate: string) {
+    const user = await firstValueFrom(this.http.post('/api/users/register', {username, password, birthdate}));
+    console.log("Registered user:", user);
+  }
+
   getList() {
     return this.http.get('/api/users')
   }

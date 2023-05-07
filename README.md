@@ -12,10 +12,10 @@ A projekt alapértelmezetten localhost:27017 cimen csatlakozik a MongoDB-hez, a 
 
 A projekt mappájában adjuk ki a következő parancsokat:
 ```bash
-cd frontend
+cd client
 npm install
 npm run build
-cd ../backend
+cd ../server
 npm install
 npm start
 ```
@@ -30,8 +30,8 @@ Bejelentkezés után választhatunk a terméklista és a felhasználólista köz
 Fontos pontok:
 * Statikus hosztolás: eleve jó helyre buildelődik a frontend
 * Adatbázis: órai felépités
-* Adatbázis hook: jelszótitkositás és termék ID generálás
+* Adatbázis hook: jelszótitkositás és termék azonositó generálás
 * Route-ok adottak
-* Van navigáció frontenden (terméklista/felhasználólista, termék szerkesztés)
+* Van navigáció frontenden (terméklista/felhasználólista, termék szerkesztés/login/register)
 * Service-eken keresztül kommunikál a backenddel
 * Van auth guard

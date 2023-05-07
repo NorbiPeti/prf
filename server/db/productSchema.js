@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
 productSchema.pre('save', function(next) {
 	const product = this;
 	if(product.isModified('name')) {
-		product.name = product.name.replaceAll(/[ !?$.,-]/g, '');
+		product.id = product.name.replaceAll(/[ !?$.,-]/g, '').toLowerCase();
 	}
 	return next();
 });

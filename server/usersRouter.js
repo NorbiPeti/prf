@@ -36,7 +36,23 @@ router.route('/logout').post((req, res) => {
 	} else {
 		return res.status(403).json({status: 'NOTOK'});
 	}
-})
+});
+
+router.route('/register').post(async (req, res) => {
+	const user = new User({
+		username: req.body.username,
+		password: req.body.password,
+		accessLevel: 1,
+		birthdate: req.body.birthdate,
+	});
+
+	try {
+		const newUser = await user.save();
+		res.status(201).json(newUser);
+	} catch (error) {
+		res.status(400).json({ message: error.message });
+	}
+});
 
 router.route('/status').get((req, res) => {
 	if (req.isAuthenticated()) {

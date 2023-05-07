@@ -15,7 +15,7 @@ export class ProductService {
   }
 
   edit(data: Product) {
-    return this.http.patch('/api/products/' + data.id, data);
+    return this.http.patch('/api/products/' + data._id, data);
   }
 
   get(id: string) {

@@ -22,7 +22,7 @@ export class ProductListComponent implements AfterViewInit {
   products: Observable<Product[]>
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'description', 'price', 'actions'];
+  displayedColumns = ['name', 'description', 'price', 'id', 'actions'];
 
   constructor(private service: ProductService, public userService: UserService) {
     this.products = service.getList().pipe(map(value => value as Product[]));

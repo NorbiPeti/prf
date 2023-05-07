@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { Product } from '../model/product.model';
 import { ActivatedRoute } from '@angular/router';
-import { flatMap, mergeMap, Observable } from 'rxjs';
+import { firstValueFrom, flatMap, mergeMap, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -14,13 +14,19 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class ProductEditComponent {
   form = new FormGroup({
     name: new FormControl()
-  })
+  });
+
+  product: Product | undefined;
 
   constructor(private service: ProductService, route: ActivatedRoute) {
-    service.get(route.snapshot.params['id']).subscribe((value: Product) => this.form.patchValue(value));
+    service.get(route.snapshot.params['id']).subscribe((value: Product) => {
+      this.form.patchValue(value);
+      this.product = value;
+    });
   }
 
-  save() {
-    this.service.edit(this.form.value as Product);
+  async save() {
+    const product = await firstValueFrom(this.service.edit({...this.product, ...this.form.value} as Product));
+    console.log("Edited product:", product);
   }
 }
